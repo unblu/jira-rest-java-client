@@ -63,7 +63,7 @@ public class AsynchronousVersionRestClientTest extends AbstractAsynchronousRestC
         assertThat(Iterables.transform(client.getProjectClient().getProject("TST").claim().getVersions(),
                 new VersionToNameMapper()), containsInAnyOrder("1.1", "1"));
 
-        final VersionInput versionInput = VersionInput.create("TST", "My newly created version", "A description\nwith\new line", null, false, false);
+        final VersionInput versionInput = VersionInput.create("TST", "My newly created version", "A description\nwith\new line", null, false, false, null);
         final Version version = client.getVersionRestClient().createVersion(versionInput).claim();
         assertVersionInputAndVersionEquals(versionInput, version);
         assertNotNull(version.getId());
@@ -79,7 +79,7 @@ public class AsynchronousVersionRestClientTest extends AbstractAsynchronousRestC
         });
 
 
-        final VersionInput versionInput2 = VersionInput.create("TST", "My newly created version2", "A description\nwith\new line", null, false, false);
+        final VersionInput versionInput2 = VersionInput.create("TST", "My newly created version2", "A description\nwith\new line", null, false, false, null);
         setAnonymousMode();
         TestUtil.assertErrorCode(IntegrationTestUtil.TESTING_JIRA_5_OR_NEWER ? Response.Status.NOT_FOUND
                 : Response.Status.UNAUTHORIZED, new Runnable() {
@@ -159,7 +159,7 @@ public class AsynchronousVersionRestClientTest extends AbstractAsynchronousRestC
         }
         final Iterable<Version> versionsInTheBeggining = client.getProjectClient().getProject("TST").claim().getVersions();
         final VersionInput versionInput = VersionInput
-                .create("TST", "My newly created version", "A description\nwith\new line", null, false, false);
+                .create("TST", "My newly created version", "A description\nwith\new line", null, false, false, null);
         final Version version = client.getVersionRestClient().createVersion(versionInput).claim();
         assertEquals(version, client.getVersionRestClient().getVersion(version.getSelf()).claim());
 
@@ -341,7 +341,7 @@ public class AsynchronousVersionRestClientTest extends AbstractAsynchronousRestC
             return;
         }
         final Version v3 = client.getVersionRestClient().createVersion(VersionInput
-                .create("TST", "my added version", "a description", null, false, false)).claim();
+                .create("TST", "my added version", "a description", null, false, false, null)).claim();
         assertProjectHasOrderedVersions("TST", "1", "1.1", v3.getName());
         client.getVersionRestClient().moveVersion(v3.getSelf(), VersionPosition.FIRST).claim();
         assertProjectHasOrderedVersions("TST", v3.getName(), "1", "1.1");
@@ -375,9 +375,9 @@ public class AsynchronousVersionRestClientTest extends AbstractAsynchronousRestC
             return;
         }
         final Version v3 = client.getVersionRestClient().createVersion(VersionInput
-                .create("TST", "my added version", "a description", null, false, false)).claim();
+                .create("TST", "my added version", "a description", null, false, false, null)).claim();
         final Version v4 = client.getVersionRestClient().createVersion(VersionInput
-                .create("TST", "my added version2", "a description2", null, true, false)).claim();
+                .create("TST", "my added version2", "a description2", null, true, false, null)).claim();
         final Version v1 = Iterables.get(client.getProjectClient().getProject("TST").claim().getVersions(), 0);
         final String v1n = v1.getName();
         final String v3n = v3.getName();

@@ -19,6 +19,8 @@ package com.atlassian.jira.rest.client.api.domain.input;
 import com.atlassian.jira.rest.client.api.domain.Version;
 import org.joda.time.DateTime;
 
+import java.net.URI;
+
 public class VersionInputBuilder {
     private final String projectKey;
     private String name;
@@ -26,6 +28,7 @@ public class VersionInputBuilder {
     private DateTime releaseDate;
     private boolean archived;
     private boolean released;
+    private URI moveUnfixedIssuesTo;
 
     public VersionInputBuilder(String projectKey) {
         this.projectKey = projectKey;
@@ -66,7 +69,12 @@ public class VersionInputBuilder {
         return this;
     }
 
+    public VersionInputBuilder setMoveUnfixedIssuesTo(URI moveUnfixedIssuesTo) {
+        this.moveUnfixedIssuesTo = moveUnfixedIssuesTo;
+        return this;
+    }
+
     public VersionInput build() {
-        return new VersionInput(projectKey, name, description, releaseDate, archived, released);
+        return new VersionInput(projectKey, name, description, releaseDate, archived, released, moveUnfixedIssuesTo);
     }
 }

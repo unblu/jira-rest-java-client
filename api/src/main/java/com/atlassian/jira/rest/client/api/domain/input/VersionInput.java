@@ -20,6 +20,7 @@ import com.google.common.base.Objects;
 import org.joda.time.DateTime;
 
 import javax.annotation.Nullable;
+import java.net.URI;
 
 /**
  * Input data describing details of a project version to create.
@@ -34,20 +35,22 @@ public class VersionInput {
     private final DateTime releaseDate;
     private boolean isArchived;
     private boolean isReleased;
+    private URI moveUnfixedIssuesTo;
 
     public VersionInput(String projectKey, String name, @Nullable String description, @Nullable DateTime releaseDate,
-                        boolean isArchived, boolean isReleased) {
+                        boolean isArchived, boolean isReleased, @Nullable URI moveUnfixedIssuesTo) {
         this.projectKey = projectKey;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.isArchived = isArchived;
         this.isReleased = isReleased;
+        this.moveUnfixedIssuesTo = moveUnfixedIssuesTo;
     }
 
     public static VersionInput create(String projectKey, String name, @Nullable String description, @Nullable DateTime releaseDate,
-                                      boolean archived, boolean release) {
-        return new VersionInput(projectKey, name, description, releaseDate, archived, release);
+                                      boolean archived, boolean release, @Nullable URI moveUnfixedIssuesTo) {
+        return new VersionInput(projectKey, name, description, releaseDate, archived, release, moveUnfixedIssuesTo);
     }
 
     public String getProjectKey() {
@@ -75,6 +78,10 @@ public class VersionInput {
         return isReleased;
     }
 
+    public URI getMoveUnfixedIssuesTo() {
+        return moveUnfixedIssuesTo;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
@@ -84,6 +91,7 @@ public class VersionInput {
                 .add("releaseDate", releaseDate)
                 .add("isArchived", isArchived)
                 .add("isReleased", isReleased)
+                .add("moveUnfixedIssuesTo", moveUnfixedIssuesTo)
                 .toString();
     }
 
@@ -95,14 +103,15 @@ public class VersionInput {
                     && Objects.equal(this.name, that.name)
                     && Objects.equal(this.releaseDate, that.releaseDate)
                     && Objects.equal(this.isArchived, that.isArchived)
-                    && Objects.equal(this.isReleased, that.isReleased);
+                    && Objects.equal(this.isReleased, that.isReleased)
+                    && Objects.equal(this.moveUnfixedIssuesTo, that.moveUnfixedIssuesTo);
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name, projectKey, description, releaseDate, isArchived, isReleased);
+        return Objects.hashCode(name, projectKey, description, releaseDate, isArchived, isReleased, moveUnfixedIssuesTo);
     }
 
 

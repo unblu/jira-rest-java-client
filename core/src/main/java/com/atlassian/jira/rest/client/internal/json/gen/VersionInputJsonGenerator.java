@@ -35,6 +35,7 @@ public class VersionInputJsonGenerator implements JsonGenerator<VersionInput> {
         }
         jsonObject.put("released", version.isReleased());
         jsonObject.put("archived", version.isArchived());
+        jsonObject.put("moveUnfixedIssuesTo", version.getMoveUnfixedIssuesTo());
         return jsonObject;
     }
 }
