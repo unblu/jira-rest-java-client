@@ -34,10 +34,12 @@
         </dependency>
 
         <dependency>
+            <!-- TODO fix this after the move to 'org.glassfish.jersey.core' -->
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
         </dependency>
         <dependency>
+            <!-- TODO fix this after the move to 'org.glassfish.jersey.core' -->
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
         </dependency>
@@ -64,7 +66,7 @@
             <version>${jira.test-lib.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>com.sun.jersey</groupId>
+                    <groupId>org.glassfish.jersey.core</groupId>
                     <artifactId>jersey-server</artifactId>
                 </exclusion>
                 <exclusion>
