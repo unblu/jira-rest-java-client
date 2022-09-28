@@ -1,3 +1,5 @@
+Forked from https://bitbucket.org/atlassian/jira-rest-java-client/
+
 Please see project documentation at https://ecosystem.atlassian.net/wiki/display/JRJC/.
 
 In order to start JIRA please execute atlas-debug from test directory.
